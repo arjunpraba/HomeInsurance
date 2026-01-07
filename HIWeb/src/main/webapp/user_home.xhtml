@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="jakarta.faces.html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="jakarta.faces.facelets"
+      xmlns:f="jakarta.faces.core">
+
+<ui:composition template="template.xhtml">
+
+    <ui:define name="title">
+        User Dashboard | C-Domicile
+    </ui:define>
+
+    <ui:define name="content">
+        <style>
+            /* <![CDATA[ */
+            .user-wrapper {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                padding: 40px 0;
+            }
+
+            .user-container {
+                background: #ffffff;
+                border-radius: 16px;
+                box-shadow: 0 15px 35px rgba(0,0,0,0.08);
+                width: 550px;
+                overflow: hidden;
+                text-align: center;
+                border: 1px solid #eef2f7;
+            }
+
+            .user-header-box {
+                background: linear-gradient(135deg, #4f46e5 0%, #764ba2 100%);
+                padding: 40px 20px;
+                color: white;
+            }
+
+            .welcome-msg {
+                font-size: 24px;
+                font-weight: 300;
+                margin: 0;
+                display: block;
+            }
+
+            .user-name {
+                font-weight: 700;
+                display: block;
+                font-size: 30px;
+                margin-top: 5px;
+            }
+
+            .action-area {
+                padding: 40px;
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 20px;
+            }
+
+            .action-card {
+                border: 1px solid #e2e8f0;
+                border-radius: 12px;
+                padding: 25px 15px;
+                cursor: pointer;
+                transition: all 0.3s ease;
+                text-decoration: none;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                background: #fff;
+            }
+
+            .action-card:hover {
+                border-color: #4f46e5;
+                background: #f8faff;
+                transform: translateY(-5px);
+                box-shadow: 0 5px 15px rgba(79, 70, 229, 0.1);
+            }
+
+            .action-icon {
+                font-size: 2.5rem;
+                color: #4f46e5;
+                margin-bottom: 15px;
+            }
+
+            .action-title {
+                font-weight: 600;
+                color: #2d3748;
+                font-size: 16px;
+            }
+
+            .footer-strip {
+                padding: 20px;
+                background: #fcfcfc;
+                border-top: 1px solid #eee;
+            }
+            /* ]]> */
+        </style>
+
+        <div class="user-wrapper">
+            <h:form id="homeForm">
+                <div class="user-container">
+                    <div class="user-header-box">
+                        <h:outputText value="Hello," styleClass="welcome-msg" />
+                        <h:outputText value="#{userBean.firstName}!" styleClass="user-name" />
+                        <p style="opacity: 0.9; margin-top: 10px; font-size: 14px;">What would you like to do today?</p>
+                    </div>
+
+                    <div class="action-area">
+                        
+                        <p:commandLink action="#{userBean.goToGetQuote}" styleClass="action-card">
+                            <i class="pi pi-calculator action-icon"></i>
+                            <span class="action-title">Get a New Quote</span>
+                        </p:commandLink>
+
+                        <p:commandLink action="user_retrive.xhtml?faces-redirect=true" styleClass="action-card">
+                            <i class="pi pi-search-plus action-icon"></i>
+                            <span class="action-title">Retrieve / Claim</span>
+                        </p:commandLink>
+
+                    </div>
+
+                    <div class="footer-strip">
+                        <p:commandButton value="Logout" 
+                                         icon="pi pi-power-off"
+                                         action="login.xhtml?faces-redirect=true"
+                                         styleClass="ui-button-flat ui-button-plain" />
+                    </div>
+                </div>
+            </h:form>
+        </div>
+    </ui:define>
+
+</ui:composition>
+</html>

@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="jakarta.faces.html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="jakarta.faces.core"
+      xmlns:ui="jakarta.faces.facelets">
+
+<h:head>
+    <f:facet name="first">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+    </f:facet>
+
+    <title>
+        <ui:insert name="title">C-Domicile Home Insurance</ui:insert>
+    </title>
+
+    <style>
+        /* <![CDATA[ */
+        :root {
+            --primary: #4f46e5;
+            --primary-dark: #3730a3;
+            --secondary: #1e293b;
+            --accent: #fbbf24;
+            --bg: #f8fafc;
+            --text-light: #94a3b8;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg);
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            color: var(--secondary);
+        }
+
+        /* Header Styling */
+        .header-container {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            padding: 2.5rem 1rem;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .header-container h1 {
+            margin: 0;
+            font-size: 2.8rem;
+            letter-spacing: -1px;
+            font-weight: 800;
+            text-transform: uppercase;
+        }
+
+        .header-container h3 {
+            margin: 0.5rem 0 0;
+            font-weight: 300;
+            opacity: 0.9;
+            font-size: 1.2rem;
+        }
+
+        /* Sticky Navbar */
+        .ui-menubar {
+            background: #ffffff !important;
+            border: none !important;
+            border-radius: 0 !important;
+            padding: 0.5rem 10% !important;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05) !important;
+        }
+
+        .ui-menuitem-link {
+            transition: all 0.3s ease !important;
+            padding: 0.8rem 1.2rem !important;
+        }
+
+        .ui-menuitem-text {
+            font-weight: 600 !important;
+            color: var(--secondary) !important;
+        }
+
+        /* Content Container */
+        .main-content {
+            min-height: 60vh;
+            padding: 40px 10%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Footer Styling */
+        .main-footer {
+            background: var(--secondary);
+            color: #f8fafc;
+            padding: 4rem 10% 2rem;
+            margin-top: 60px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-brand {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--accent);
+            margin-bottom: 1rem;
+        }
+
+        .footer-section h4 {
+            border-bottom: 2px solid var(--primary);
+            display: inline-block;
+            margin-bottom: 1.5rem;
+            padding-bottom: 5px;
+        }
+
+        .contact-info p {
+            margin: 10px 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .contact-info i {
+            color: var(--accent);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid #334155;
+            font-size: 0.85rem;
+            color: var(--text-light);
+        }
+        /* ]]> */
+    </style>
+</h:head>
+
+<h:body>
+
+    <header class="header-container">
+        <h1>C-Domicile</h1>
+        <h3>Secure Your Home, Secure Your Future</h3>
+    </header>
+
+    <h:form id="menuForm">
+        <p:menubar>
+            <p:menuitem value="Home" outcome="home" icon="pi pi-home"/>
+            <p:menuitem value="Register" outcome="register" icon="pi pi-user-plus"/>
+            <p:menuitem value="Login" outcome="login" icon="pi pi-sign-in"/>
+            
+            <p:menuitem value="About Us" outcome="about" icon="pi pi-info-circle"/>
+            <p:menuitem value="Contact Us" outcome="contact" icon="pi pi-envelope"/>
+            
+            <f:facet name="options">
+                <p:button value="Emergency Support" icon="pi pi-phone" 
+                          styleClass="ui-button-warning ui-button-raised" 
+                          style="margin-left: 20px; font-weight: bold;"/>
+            </f:facet>
+        </p:menubar>
+    </h:form>
+
+    <main class="main-content">
+        <ui:insert name="content">
+            <p>Welcome to C-Domicile Home Insurance. Please select a service from the menu.</p>
+        </ui:insert>
+    </main>
+
+    <footer class="main-footer">
+        <div class="footer-grid">
+            <div class="footer-section">
+                <div class="footer-brand">C-Domicile</div>
+                <p>Leading the way in digital home insurance. We provide comprehensive coverage tailored to your needs with a 98% claim settlement ratio.</p>
+            </div>
+            
+            <div class="footer-section contact-info">
+                <h4>Get In Touch</h4>
+                <p><i class="pi pi-map-marker"></i> 123 Insurance Plaza, Chennai, India</p>
+                <p><i class="pi pi-envelope"></i> support@cdomicile.com</p>
+                <p><i class="pi pi-phone"></i> +91-98765-43210</p>
+            </div>
+            
+            <div class="footer-section">
+                <h4>Quick Links</h4>
+                <p><h:link value="Terms of Service" outcome="home" style="color: #94a3b8; text-decoration: none;"/></p>
+                <p><h:link value="Privacy Policy" outcome="home" style="color: #94a3b8; text-decoration: none;"/></p>
+                <p><h:link value="FAQ" outcome="home" style="color: #94a3b8; text-decoration: none;"/></p>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>© 2025 C-Domicile Home Insurance | All Rights Reserved | IRDAI Reg No: 123456</p>
+        </div>
+    </footer>
+
+</h:body>
+</html>

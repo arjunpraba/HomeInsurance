@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="jakarta.faces.html"
+      xmlns:f="jakarta.faces.core"
+      xmlns:ui="jakarta.faces.facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/template.xhtml">
+
+    <!-- ================= PAGE TITLE ================= -->
+    <ui:define name="title">
+        Contact Us | C-Domicile Insurance
+    </ui:define>
+
+    <!-- ================= PAGE CONTENT ================= -->
+    <ui:define name="content">
+
+        <style>
+            /* <![CDATA[ */
+            .contact-hero {
+                text-align: center;
+                padding: 40px 0;
+                background: #ffffff;
+                border-radius: 15px;
+                margin-bottom: 30px;
+                box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            }
+
+            .contact-hero h2 {
+                color: #4f46e5;
+                font-size: 2.4rem;
+                margin-bottom: 10px;
+            }
+
+            .contact-info-box {
+                background: #ffffff;
+                border-radius: 12px;
+                padding: 25px;
+                text-align: center;
+                border: 1px solid #eef2f7;
+                height: 100%;
+            }
+
+            .contact-icon {
+                font-size: 2.5rem;
+                color: #4f46e5;
+                margin-bottom: 15px;
+                display: block;
+            }
+
+            .contact-title {
+                font-weight: 700;
+                font-size: 1.1rem;
+                color: #1e293b;
+                margin-bottom: 10px;
+                display: block;
+            }
+            /* ]]> */
+        </style>
+
+        <!-- ================= HERO SECTION ================= -->
+        <div class="contact-hero">
+            <h2>Get in Touch</h2>
+            <p style="font-size:1.1rem; color:#64748b; max-width:750px; margin:0 auto;">
+                Have questions about our policies or need assistance?
+                Our support team is always ready to help you.
+            </p>
+        </div>
+
+        <!-- ================= CONTACT INFO ================= -->
+        <div class="ui-g">
+            <div class="ui-g-12 ui-md-4">
+                <div class="contact-info-box">
+                    <i class="pi pi-phone contact-icon"></i>
+                    <span class="contact-title">Call Us</span>
+                    <p style="color:#64748b;">+91 98765 43210</p>
+                </div>
+            </div>
+
+            <div class="ui-g-12 ui-md-4">
+                <div class="contact-info-box">
+                    <i class="pi pi-envelope contact-icon"></i>
+                    <span class="contact-title">Email</span>
+                    <p style="color:#64748b;">support@c-domicile.com</p>
+                </div>
+            </div>
+
+            <div class="ui-g-12 ui-md-4">
+                <div class="contact-info-box">
+                    <i class="pi pi-map-marker contact-icon"></i>
+                    <span class="contact-title">Office</span>
+                    <p style="color:#64748b;">
+                        Chennai, Tamil Nadu<br/>
+                        India
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ================= CONTACT FORM ================= -->
+        <p:panel header="Send Us a Message"
+                 style="margin-top:40px; border-radius:15px;">
+
+            <h:form id="contactForm">
+
+                <div class="ui-g ui-fluid">
+
+                    <div class="ui-g-12 ui-md-6">
+                        <p:inputText id="name"
+                                     value="#{contactBean.name}"
+                                     placeholder="Your Name"
+                                     required="true"
+                                     requiredMessage="Name is required" />
+                        <p:message for="name"/>
+                    </div>
+
+                    <div class="ui-g-12 ui-md-6">
+                        <p:inputText id="email"
+                                     value="#{contactBean.email}"
+                                     placeholder="Your Email"
+                                     required="true"
+                                     validatorMessage="Invalid email format">
+                            <f:validateRegex
+                                pattern="^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$"/>
+                        </p:inputText>
+                        <p:message for="email"/>
+                    </div>
+
+                    <div class="ui-g-12">
+                        <p:inputTextarea id="message"
+                                         value="#{contactBean.message}"
+                                         rows="5"
+                                         placeholder="Your Message"
+                                         required="true"
+                                         requiredMessage="Message cannot be empty"/>
+                        <p:message for="message"/>
+                    </div>
+
+                    <div class="ui-g-12" style="text-align:right;">
+                        <p:commandButton value="Submit"
+                                         icon="pi pi-send"
+                                         action="#{contactBean.submit}"
+                                         update="@form"
+                                         styleClass="ui-button-raised"
+                                         style="background:#4f46e5;" />
+                    </div>
+
+                </div>
+
+            </h:form>
+        </p:panel>
+
+    </ui:define>
+
+</ui:composition>
+</html>

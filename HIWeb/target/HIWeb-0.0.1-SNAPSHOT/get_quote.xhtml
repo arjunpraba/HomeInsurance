@@ -1,0 +1,110 @@
+ <!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+    <title>Enter Home Details</title>
+    <style>
+        /* Ensures the label is vertically centered with the input */
+        .ui-panelgrid .ui-grid-row {
+            display: flex;
+            align-items: center;
+        }
+    </style>
+</h:head>
+
+<h:body>
+
+    <h:form id="quoteForm">
+
+        <p:panel header="Enter Home Details"
+                 style="width:750px; margin:40px auto;">
+
+            <p:messages id="msgs" showDetail="true" closable="true"/>
+
+            <p:panelGrid columns="2"
+                         layout="grid"
+                         columnClasses="ui-grid-col-3, ui-grid-col-9"
+                         styleClass="ui-panelgrid-blank ui-fluid">
+
+                <p:outputLabel for="resType" value="Residence Type"/>
+                <p:selectOneMenu id="resType" value="#{quoteBean.residenceType}" required="true">
+                    <f:selectItem itemLabel="Select" itemValue=""/>
+                    <f:selectItems value="#{quoteBean.residenceTypes}"/>
+                </p:selectOneMenu>
+
+                <p:outputLabel for="resUse" value="Residence Use"/>
+                <p:selectOneMenu id="resUse" value="#{quoteBean.residenceUse}" required="true">
+                    <f:selectItem itemLabel="Select" itemValue=""/>
+                    <f:selectItems value="#{quoteBean.residenceUses}"/>
+                </p:selectOneMenu>
+
+                <p:outputLabel for="area" value="Built Up Area"/>
+                <h:panelGroup styleClass="ui-inputgroup">
+                    <p:inputText id="area" value="#{quoteBean.builtUpArea}" required="true"/>
+                    <span class="ui-inputgroup-addon">sq.ft</span>
+                </h:panelGroup>
+
+                <p:outputLabel for="marketVal" value="Market Value"/>
+                <h:panelGroup styleClass="ui-inputgroup">
+                    <span class="ui-inputgroup-addon">$</span>
+                    <p:inputText id="marketVal" value="#{quoteBean.marketValue}" required="true"/>
+                </h:panelGroup>
+
+                <p:outputLabel for="year" value="Year Built"/>
+                <p:inputText id="year" value="#{quoteBean.yearBuilt}" required="true"/>
+
+                <p:outputLabel for="style" value="Dwelling Style"/>
+                <p:selectOneMenu id="style" value="#{quoteBean.dwellingStyle}" required="true">
+                    <f:selectItem itemLabel="Select" itemValue=""/>
+                    <f:selectItems value="#{quoteBean.dwellingStyles}"/>
+                </p:selectOneMenu>
+
+                <p:outputLabel for="roof" value="Roof Material"/>
+                <p:selectOneMenu id="roof" value="#{quoteBean.roofMaterial}" required="true">
+                    <f:selectItem itemLabel="Select" itemValue=""/>
+                    <f:selectItems value="#{quoteBean.roofMaterials}"/>
+                </p:selectOneMenu>
+
+                <p:outputLabel for="garage" value="Type of Garage"/>
+                <p:selectOneMenu id="garage" value="#{quoteBean.garageType}" required="true">
+                    <f:selectItem itemLabel="Select" itemValue=""/>
+                    <f:selectItems value="#{quoteBean.garageTypes}"/>
+                </p:selectOneMenu>
+
+					<p:outputLabel value="Swimming Pool"/>
+					<p:selectOneRadio value="#{quoteBean.swimmingPool}" required="true">
+					    <f:selectItem itemLabel="Yes" itemValue="true"/>
+					    <f:selectItem itemLabel="No"  itemValue="false"/>
+					</p:selectOneRadio>
+
+
+                <p:outputLabel value="Address Line 1"/>
+                <p:inputText value="#{quoteBean.addressLine1}" required="true"/>
+
+                <p:outputLabel value="Address Line 2"/>
+                <p:inputText value="#{quoteBean.addressLine2}"/>
+
+                <p:outputLabel value="City"/>
+                <p:inputText value="#{quoteBean.city}" required="true"/>
+
+                <p:outputLabel value="ZIP"/>
+                <p:inputText value="#{quoteBean.zip}" required="true"/>
+
+            </p:panelGrid>
+
+            <div style="text-align:center; margin-top:25px;">
+                <p:commandButton value="Generate Quote"
+                                 action="#{quoteBean.generateQuote}"
+                                 update="quoteForm msgs"
+                                 style="width:200px"/>
+            </div>
+
+        </p:panel>
+
+    </h:form>
+
+</h:body>
+</html>

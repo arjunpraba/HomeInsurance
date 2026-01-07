@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="jakarta.faces.html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="jakarta.faces.facelets"
+      xmlns:f="jakarta.faces.core">
+
+<ui:composition template="template.xhtml">
+
+    <ui:define name="title">
+        Admin Dashboard | C-Domicile
+    </ui:define>
+
+    <ui:define name="content">
+        <style>
+            /* <![CDATA[ */
+            .dashboard-wrapper {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                padding: 50px 0;
+            }
+
+            .dashboard-card {
+                background: #ffffff;
+                border-radius: 16px;
+                box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+                padding: 45px;
+                width: 100%;
+                max-width: 480px;
+                text-align: center;
+                border-top: 6px solid #4f46e5; /* Matching template primary color */
+            }
+
+            .welcome-text {
+                color: #1e293b;
+                font-size: 26px;
+                font-weight: 700;
+                margin-bottom: 10px;
+                display: block;
+            }
+
+            .subtitle {
+                color: #64748b;
+                font-size: 15px;
+                margin-bottom: 35px;
+                display: block;
+            }
+
+            .nav-button {
+                margin-bottom: 18px !important;
+                border-radius: 10px !important;
+                font-weight: 600 !important;
+                height: 55px !important;
+                transition: all 0.3s ease !important;
+            }
+
+            .nav-button:hover {
+                transform: translateY(-3px);
+                box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+            }
+
+            .btn-policies {
+                background: linear-gradient(135deg, #4f46e5 0%, #3b82f6 100%) !important;
+                border: none !important;
+            }
+
+            .btn-claims {
+                background: linear-gradient(135deg, #ef4444 0%, #b91c1c 100%) !important;
+                border: none !important;
+            }
+
+            .logout-link {
+                color: #94a3b8;
+                text-decoration: none;
+                font-size: 14px;
+                transition: color 0.2s;
+            }
+
+            .logout-link:hover {
+                color: #ef4444;
+            }
+            /* ]]> */
+        </style>
+
+        <div class="dashboard-wrapper">
+            <h:form id="adminHomeForm">
+                <div class="dashboard-card">
+                    <div style="margin-bottom: 25px;">
+                        <i class="pi pi-shield" style="font-size: 3.5rem; color: #4f46e5;"></i>
+                    </div>
+                    
+                    <h:outputText value="Admin Portal" styleClass="welcome-text" />
+                    <h:outputText value="Securely manage home insurance policies, claims, and user records." styleClass="subtitle" />
+
+                    <div class="flex flex-column">
+                        <p:commandButton value="Manage Policies"
+                                         icon="pi pi-list"
+                                         action="#{adminBean.viewPolicy}"
+                                         styleClass="nav-button btn-policies"
+                                         style="width: 100%"/>
+
+                        <p:commandButton value="Review Policy Claims"
+                                         icon="pi pi-file-pdf"
+                                         action="#{adminBean.viewPolicyClaim}"
+                                         styleClass="nav-button btn-claims"
+                                         style="width: 100%"/>
+                    </div>
+
+                    <p:divider style="margin: 30px 0;"/>
+
+                    <p:commandLink value="Secure Logout" 
+                                   styleClass="logout-link"
+                                   action="login.xhtml?faces-redirect=true" />
+                </div>
+            </h:form>
+        </div>
+    </ui:define>
+
+</ui:composition>
+</html>

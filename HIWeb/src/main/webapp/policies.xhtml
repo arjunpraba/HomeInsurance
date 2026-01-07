@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+<ui:composition template="template.xhtml">
+
+    <!-- Page Title -->
+    <ui:define name="title">
+        Policy Details | C-Domicile
+    </ui:define>
+
+    <!-- Main Content -->
+    <ui:define name="content">
+
+        <h:form id="policyForm">
+
+            <div style="display:flex; justify-content:center; margin-top:40px;">
+                <p:panel header="Policy Details" 
+                         style="width:100%; max-width:1000px; border-radius:12px; box-shadow:0 8px 25px rgba(0,0,0,0.1); padding:25px;">
+                    
+                    <p:messages showDetail="true" closable="true" />
+
+                    <p:dataTable id="policyTable"
+                                 value="#{retriveQuoteBean.policies}"
+                                 var="p"
+                                 rows="5"
+                                 paginator="true"
+                                 filterDelay="500"
+                                 sortMode="multiple"
+                                 responsiveLayout="scroll"
+                                 styleClass="ui-datatable-striped ui-datatable-gridlines">
+
+                        <!-- Policy ID -->
+                        <p:column headerText="Policy ID"
+                                  filterBy="#{p.policyId}" sortBy="#{p.policyId}">
+                            <h:outputText value="#{p.policyId}"/>
+                        </p:column>
+
+                        <!-- Quote ID -->
+                        <p:column headerText="Quote ID"
+                                  filterBy="#{p.quote.quoteId}" sortBy="#{p.quote.quoteId}">
+                            <h:outputText value="#{p.quote.quoteId}"/>
+                        </p:column>
+
+                        <!-- Yearly Premium -->
+                        <p:column headerText="Yearly Premium"
+                                  filterBy="#{p.yearlyPremium}" sortBy="#{p.yearlyPremium}">
+                            <h:outputText value="#{p.yearlyPremium}">
+                                <f:convertNumber type="currency" currencySymbol="$"/>
+                            </h:outputText>
+                        </p:column>
+
+                        <!-- Dwelling Coverage -->
+                        <p:column headerText="Dwelling Coverage"
+                                  filterBy="#{p.dwellingCoverage}" sortBy="#{p.dwellingCoverage}">
+                            <h:outputText value="#{p.dwellingCoverage}">
+                                <f:convertNumber type="currency" currencySymbol="$"/>
+                            </h:outputText>
+                        </p:column>
+
+                        <!-- Policy Holder -->
+                        <p:column headerText="Policy Holder"
+                                  filterBy="#{p.user.firstName}" sortBy="#{p.user.firstName}">
+                            <h:outputText value="#{p.user.firstName} #{p.user.lastName}"/>
+                        </p:column>
+
+                        <!-- Action -->
+                        <p:column headerText="Action">
+                            <p:commandButton value="Claim Policy"
+                                             action="#{retriveQuoteBean.claimPolicy(p)}"
+                                             icon="pi pi-file"
+                                             styleClass="p-button-rounded p-button-danger"
+                                             style="width:120px"/>
+                        </p:column>
+
+                    </p:dataTable>
+
+                    <div style="text-align:center; margin-top:25px;">
+                        <p:commandButton value="Back to Quotes" 
+                                         action="user_retrive.xhtml?faces-redirect=true"
+                                         icon="pi pi-arrow-left"
+                                         styleClass="p-button-rounded p-button-secondary"
+                                         style="width:200px;"/>
+                    </div>
+
+                </p:panel>
+            </div>
+
+        </h:form>
+
+    </ui:define>
+
+</ui:composition>
+</html>

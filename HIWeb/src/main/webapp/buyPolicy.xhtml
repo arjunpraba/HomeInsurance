@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+    <title>Buy Policy</title>
+</h:head>
+
+<h:body>
+
+<h:form id="policyForm">
+    <p:panel header="Buy Policy" style="width:600px; margin:40px auto;">
+        <p:messages id="msgs" showDetail="true" closable="true"/>
+
+        <p:panelGrid columns="2" columnClasses="label,value" cellpadding="8">
+
+            <h:outputLabel value="Quote ID"/>
+            <h:outputText value="#{policyBean.quote.quoteId}"/>
+
+            <h:outputLabel for="cardType" value="Card Type"/>
+            <p:selectOneMenu id="cardType" value="#{policyBean.cardType}" required="true">
+                <f:selectItem itemLabel="Select" itemValue=""/>
+                <f:selectItems value="#{policyBean.cardTypes}"/>
+            </p:selectOneMenu>
+
+            <h:outputLabel for="vendor" value="Vendor"/>
+            <p:selectOneMenu id="vendor" value="#{policyBean.vendor}" required="true">
+                <f:selectItem itemLabel="Select" itemValue=""/>
+                <f:selectItems value="#{policyBean.vendors}"/>
+            </p:selectOneMenu>
+
+            <h:outputLabel for="cardBrand" value="Card Brand"/>
+            <p:selectOneMenu id="cardBrand" value="#{policyBean.cardBrand}" required="true">
+                <f:selectItem itemLabel="Select" itemValue=""/>
+                <f:selectItems value="#{policyBean.cardBrands}"/>
+            </p:selectOneMenu>
+
+            <h:outputLabel for="cardNumber" value="Card Number"/>
+            <p:inputText id="cardNumber" value="#{policyBean.cardNumber}" required="true"/>
+
+            <h:outputLabel for="nameOnCard" value="Name on Card"/>
+            <p:inputText id="nameOnCard" value="#{policyBean.nameOnCard}" required="true"/>
+
+            <h:outputLabel for="cvv" value="CVV"/>
+            <p:inputText id="cvv" value="#{policyBean.cvv}" required="true"/>
+
+            <h:outputLabel for="expiry" value="Expiry Date (MM/YY)"/>
+            <p:inputText id="expiry" value="#{policyBean.expiryDate}" required="true"/>
+
+            <h:outputLabel for="amount" value="Amount"/>
+            <p:inputText id="amount" value="#{policyBean.amount}" readonly="true"/>
+
+            <h:outputLabel for="policyStart" value="Policy Start Date"/>
+            <p:calendar id="policyStart" value="#{policyBean.policyStartDate}" pattern="yyyy-MM-dd" required="true"/>
+
+			<h:outputLabel value="Terms &amp; Conditions"/>
+			<p:selectBooleanCheckbox value="#{policyBean.acceptedTerms}" required="true"/>
+			<h:outputText value="I have read and accept the terms and conditions."/>
+
+        </p:panelGrid>
+
+        <div style="text-align:center; margin-top:20px;">
+            <p:commandButton value="Submit" action="#{policyBean.buyPolicyDetails}" update="policyForm msgs" style="width:200px"/>
+        </div>
+
+    </p:panel>
+</h:form>
+
+</h:body>
+</html>

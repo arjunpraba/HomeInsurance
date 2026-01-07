@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="jakarta.faces.html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="jakarta.faces.facelets"
+      xmlns:f="jakarta.faces.core">
+
+<h:head>
+    <title>View Policies | Admin</title>
+</h:head>
+
+<h:body>
+
+<h:form id="policyForm">
+
+    <p:panel header="Policy Details"
+             style="width:95%; margin:40px auto;">
+
+        <p:dataTable id="policyTable"
+                     value="#{adminBean.policy}"
+                     var="p"
+                     paginator="true"
+                     rows="10"
+                     stripedRows="true"
+                     responsiveLayout="scroll"
+                     emptyMessage="No policies found"
+                     filterDelay="500"
+                     sortMode="multiple">
+
+            <!-- Policy ID -->
+            <p:column headerText="Policy ID"
+                      filterBy="#{p.policyId}"
+                      filterMatchMode="contains"
+                      sortBy="#{p.policyId}">
+                <h:outputText value="#{p.policyId}" />
+            </p:column>
+
+            <!-- Quote ID -->
+            <p:column headerText="Quote ID"
+                      filterBy="#{p.quote.quoteId}"
+                      filterMatchMode="contains"
+                      sortBy="#{p.quote.quoteId}">
+                <h:outputText value="#{p.quote.quoteId}" />
+            </p:column>
+
+            <!-- User ID -->
+            <p:column headerText="User ID"
+                      filterBy="#{p.user.userId}"
+                      filterMatchMode="contains"
+                      sortBy="#{p.user.userId}">
+                <h:outputText value="#{p.user.userId}" />
+            </p:column>
+
+            <!-- Yearly Premium -->
+            <p:column headerText="Yearly Premium"
+                  
+                      sortBy="#{p.yearlyPremium}">
+                <h:outputText value="#{p.yearlyPremium}">
+                    <f:convertNumber type="currency" currencySymbol="$" />
+                </h:outputText>
+            </p:column>
+
+            <!-- Dwelling Coverage -->
+            <p:column headerText="Dwelling Coverage"
+                 
+                      sortBy="#{p.dwellingCoverage}">
+                <h:outputText value="#{p.dwellingCoverage}">
+                    <f:convertNumber type="currency" currencySymbol="$" />
+                </h:outputText>
+            </p:column>
+
+            <!-- Detached Structures -->
+            <p:column headerText="Detached Structures"
+     
+                      sortBy="#{p.detachedStructures}">
+                <h:outputText value="#{p.detachedStructures}">
+                    <f:convertNumber type="currency" currencySymbol="$" />
+                </h:outputText>
+            </p:column>
+
+            <!-- Personal Property -->
+            <p:column headerText="Personal Property"
+     
+                      sortBy="#{p.personalProperty}">
+                <h:outputText value="#{p.personalProperty}">
+                    <f:convertNumber type="currency" currencySymbol="$" />
+                </h:outputText>
+            </p:column>
+
+            <!-- Additional Living Expense -->
+            <p:column headerText="Additional Living Expense"
+       
+                      sortBy="#{p.additionalLivingExpense}">
+                <h:outputText value="#{p.additionalLivingExpense}">
+                    <f:convertNumber type="currency" currencySymbol="$" />
+                </h:outputText>
+            </p:column>
+
+            <!-- Medical Expense -->
+            <p:column headerText="Medical Expense"
+       
+                      sortBy="#{p.medicalExpense}">
+                <h:outputText value="#{p.medicalExpense}">
+                    <f:convertNumber type="currency" currencySymbol="$" />
+                </h:outputText>
+            </p:column>
+
+            <!-- Deductible -->
+            <p:column headerText="Deductible"
+       
+                      sortBy="#{p.deductible}">
+                <h:outputText value="#{p.deductible}">
+                    <f:convertNumber type="currency" currencySymbol="$" />
+                </h:outputText>
+            </p:column>
+
+        </p:dataTable>
+
+        <!-- Navigation -->
+        <h:panelGroup layout="block" style="text-align:center; margin-top:25px;">
+            <p:commandButton value="Back to Admin Home"
+                             action="admin_home.xhtml?faces-redirect=true"
+                             style="width:200px"/>
+        </h:panelGroup>
+
+    </p:panel>
+
+</h:form>
+
+</h:body>
+</html>

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+    <title>Coverage Details</title>
+</h:head>
+
+<h:body>
+
+<h:form id="coverageForm">
+
+    <p:panel header="Coverage Details" style="width:720px; margin:40px auto;">
+
+        <p:panelGrid columns="2" columnClasses="label,value" cellpadding="8">
+
+            <h:outputLabel value="Quote ID"/>
+            <h:outputText value="#{coverageBean.quote.quoteId}"/>
+
+            <h:outputLabel value="Yearly Premium"/>
+            <h:outputText value="#{coverageBean.yearlyPremium}">
+                <f:convertNumber type="currency" currencySymbol="$" maxFractionDigits="2"/>
+            </h:outputText>
+
+            <h:outputLabel value="Dwelling Coverage"/>
+            <h:outputText value="#{coverageBean.dwellingCoverage}">
+                <f:convertNumber type="currency" currencySymbol="$" maxFractionDigits="2"/>
+            </h:outputText>
+
+            <h:outputLabel value="Detached Structures"/>
+            <h:outputText value="#{coverageBean.detachedStructures}">
+                <f:convertNumber type="currency" currencySymbol="$" maxFractionDigits="2"/>
+            </h:outputText>
+
+            <h:outputLabel value="Personal Property"/>
+            <h:outputText value="#{coverageBean.personalProperty}">
+                <f:convertNumber type="currency" currencySymbol="$" maxFractionDigits="2"/>
+            </h:outputText>
+
+            <h:outputLabel value="Additional Living Expense"/>
+            <h:outputText value="#{coverageBean.additionalLivingExpense}">
+                <f:convertNumber type="currency" currencySymbol="$" maxFractionDigits="2"/>
+            </h:outputText>
+
+            <h:outputLabel value="Medical Expense"/>
+            <h:outputText value="#{coverageBean.medicalExpense}">
+                <f:convertNumber type="currency" currencySymbol="$" maxFractionDigits="2"/>
+            </h:outputText>
+
+            <h:outputLabel value="Deductible"/>
+            <h:outputText value="#{coverageBean.deductible}">
+                <f:convertNumber type="currency" currencySymbol="$" maxFractionDigits="2"/>
+            </h:outputText>
+
+        </p:panelGrid>
+
+        <h:panelGroup layout="block" style="text-align:center; margin-top:25px;">
+            <p:commandButton value="Buy Policy"
+                             action="#{policyBean.buyPolicy(coverageBean.quote)}"
+                             style="width:180px"/>
+        </h:panelGroup>
+
+    </p:panel>
+
+</h:form>
+
+</h:body>
+</html>

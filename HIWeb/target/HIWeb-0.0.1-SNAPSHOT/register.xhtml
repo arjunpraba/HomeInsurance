@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="jakarta.faces.html"
+      xmlns:f="jakarta.faces.core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="jakarta.faces.facelets">
+
+<ui:composition template="template.xhtml">
+
+    <ui:define name="title">
+        Register | C-Domicile Insurance
+    </ui:define>
+
+    <ui:define name="content">
+        <style>
+            /* <![CDATA[ */
+            .reg-container {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                padding: 40px 20px;
+            }
+
+            .reg-card.ui-panel {
+                border: none;
+                box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+                border-radius: 12px;
+                background: #ffffff;
+            }
+
+            .reg-card .ui-panel-titlebar {
+                background: #f8fafc;
+                border-bottom: 1px solid #edf2f7;
+                text-align: center;
+                font-size: 1.5rem;
+                padding: 20px;
+                font-weight: 700;
+                color: #1e293b;
+            }
+
+            .primary-btn {
+                background: #4f46e5 !important;
+                border: none !important;
+                height: 45px !important;
+                font-weight: bold !important;
+                transition: all 0.2s ease;
+            }
+
+            .primary-btn:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 5px 15px rgba(79, 70, 229, 0.4);
+            }
+
+            .secondary-btn {
+                background: #f1f5f9 !important;
+                color: #475569 !important;
+                border: 1px solid #e2e8f0 !important;
+                height: 45px !important;
+            }
+
+            .field-label {
+                display: block;
+                margin-bottom: 8px;
+                font-weight: 600;
+                color: #475569;
+                font-size: 0.9rem;
+            }
+
+            /* Customizing the grid for better spacing */
+            .ui-panelgrid .ui-panelgrid-cell {
+                padding: 8px 12px !important;
+            }
+            /* ]]> */
+        </style>
+
+        <div class="reg-container">
+            <h:form id="regForm">
+                <p:panel id="regPanel" header="Create New Account" styleClass="reg-card" style="max-width: 800px; width: 100%;">
+                    
+                    <p:messages id="msgs" showDetail="true" closable="true">
+                        <p:autoUpdate />
+                    </p:messages>
+
+                    <div style="padding: 20px 10px;">
+                        <p:panelGrid columns="2" 
+                                     layout="grid" 
+                                     styleClass="ui-panelgrid-blank ui-fluid"
+                                     columnClasses="ui-g-12 ui-md-6, ui-g-12 ui-md-6">
+
+                            <h:panelGroup>
+                                <p:outputLabel for="userId" value="User ID" styleClass="field-label"/>
+                                <p:inputText id="userId" value="#{userBean.userId}" required="true" placeholder="Choose a username"/>
+                            </h:panelGroup>
+
+                            <h:panelGroup>
+                                <p:outputLabel for="email" value="Email Address" styleClass="field-label"/>
+                                <p:inputText id="email" value="#{userBean.email}" required="true" placeholder="name@example.com"/>
+                            </h:panelGroup>
+
+                            <h:panelGroup>
+                                <p:outputLabel for="password" value="Password" styleClass="field-label"/>
+                                <p:password id="password" value="#{userBean.password}" required="true" feedback="true" toggleMask="true"/>
+                            </h:panelGroup>
+
+                            <h:panelGroup>
+                                <p:outputLabel for="repassword" value="Re-enter Password" styleClass="field-label"/>
+                                <p:password id="repassword" value="#{userBean.reEnterPassword}" required="true" toggleMask="true"/>
+                            </h:panelGroup>
+
+                            <h:panelGroup>
+                                <p:outputLabel for="firstName" value="First Name" styleClass="field-label"/>
+                                <p:inputText id="firstName" value="#{userBean.firstName}" required="true"/>
+                            </h:panelGroup>
+
+                            <h:panelGroup>
+                                <p:outputLabel for="lastName" value="Last Name" styleClass="field-label"/>
+                                <p:inputText id="lastName" value="#{userBean.lastName}" required="true"/>
+                            </h:panelGroup>
+
+                            <h:panelGroup>
+                                <p:outputLabel for="dob" value="Date of Birth" styleClass="field-label"/>
+                                <p:calendar id="dob" value="#{userBean.dob}" pattern="dd-MM-yyyy" showIcon="true" required="true" />
+                            </h:panelGroup>
+
+                            <h:panelGroup>
+                                <p:outputLabel for="mobile" value="Mobile Number" styleClass="field-label"/>
+                                <p:inputText id="mobile" value="#{userBean.mobileNumber}" required="true"/>
+                            </h:panelGroup>
+
+                            <h:panelGroup>
+                                <p:outputLabel for="ssn" value="SSN" styleClass="field-label"/>
+                                <p:inputText id="ssn" value="#{userBean.ssn}" required="true" placeholder="XXX-XX-XXXX"/>
+                            </h:panelGroup>
+
+                            <h:panelGroup>
+                                <p:outputLabel for="city" value="City" styleClass="field-label"/>
+                                <p:inputText id="city" value="#{userBean.city}" required="true"/>
+                            </h:panelGroup>
+
+                            <h:panelGroup>
+                                <p:outputLabel for="addr1" value="Address Line 1" styleClass="field-label"/>
+                                <p:inputText id="addr1" value="#{userBean.address1}" required="true"/>
+                            </h:panelGroup>
+
+                            <h:panelGroup>
+                                <p:outputLabel for="zip" value="Zip Code" styleClass="field-label"/>
+                                <p:inputText id="zip" value="#{userBean.zip}" required="true"/>
+                            </h:panelGroup>
+
+                        </p:panelGrid>
+
+                        <div style="margin-top: 30px; display: flex; gap: 15px; justify-content: center;">
+                            <p:commandButton value="Register" 
+                                             action="#{userBean.register}" 
+                                             update="regForm"
+                                             styleClass="primary-btn"
+                                             style="width: 200px;"/>
+                                             
+                            <p:commandButton value="Reset" 
+                                             type="reset"
+                                             styleClass="secondary-btn"
+                                             style="width: 120px;"/>
+                        </div>
+                    </div>
+
+                    <f:facet name="footer">
+                        <div style="text-align: center; padding: 10px;">
+                            <span>Already have an account? </span>
+                            <p:link value="Sign In" outcome="login" style="color: #4f46e5; font-weight: 600;"/>
+                        </div>
+                    </f:facet>
+                </p:panel>
+            </h:form>
+        </div>
+    </ui:define>
+
+</ui:composition>
+</html>

@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="jakarta.faces.html"
+      xmlns:f="jakarta.faces.core"
+      xmlns:ui="jakarta.faces.facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/template.xhtml">
+
+    <!-- ================= PAGE TITLE ================= -->
+    <ui:define name="title">
+        About Us | C-Domicile Insurance
+    </ui:define>
+
+    <!-- ================= PAGE CONTENT ================= -->
+    <ui:define name="content">
+
+        <style>
+            /* <![CDATA[ */
+            .about-hero {
+                text-align: center;
+                padding: 40px 0;
+                background: #ffffff;
+                border-radius: 15px;
+                margin-bottom: 30px;
+                box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            }
+
+            .about-hero h2 {
+                color: #4f46e5;
+                font-size: 2.5rem;
+                margin-bottom: 10px;
+            }
+
+            .feature-card {
+                background: #ffffff;
+                padding: 30px 20px;
+                border-radius: 12px;
+                text-align: center;
+                transition: transform 0.3s ease;
+                border: 1px solid #eef2f7;
+                height: 100%;
+            }
+
+            .feature-card:hover {
+                transform: translateY(-8px);
+                box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+                border-color: #4f46e5;
+            }
+
+            .feature-icon {
+                font-size: 3rem;
+                color: #4f46e5;
+                margin-bottom: 20px;
+                display: block;
+            }
+
+            .feature-title {
+                font-size: 1.2rem;
+                font-weight: 700;
+                color: #1e293b;
+                margin-bottom: 15px;
+                display: block;
+            }
+
+            .stats-container {
+                background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+                color: white;
+                padding: 50px;
+                border-radius: 20px;
+                margin-top: 50px;
+            }
+
+            .stat-box {
+                text-align: center;
+            }
+
+            .stat-number {
+                font-size: 2.5rem;
+                font-weight: 800;
+                color: #fbbf24;
+                display: block;
+            }
+            /* ]]> */
+        </style>
+
+        <!-- ================= HERO SECTION ================= -->
+        <div class="about-hero">
+            <h2>Protecting What Matters Most</h2>
+            <p style="font-size: 1.2rem; color: #64748b; max-width: 800px; margin: 0 auto;">
+                Since 2010, C-Domicile Insurance has been the trusted partner for over
+                500,000 homeowners, providing protection that goes beyond a policy document.
+            </p>
+        </div>
+
+        <!-- ================= FEATURES ================= -->
+        <div class="ui-g">
+            <div class="ui-g-12 ui-md-4">
+                <div class="feature-card">
+                    <i class="pi pi-shield feature-icon"></i>
+                    <span class="feature-title">Maximum Coverage</span>
+                    <p style="color:#64748b;">
+                        Comprehensive protection against fire, theft, natural disasters,
+                        and accidental damages.
+                    </p>
+                </div>
+            </div>
+
+            <div class="ui-g-12 ui-md-4">
+                <div class="feature-card">
+                    <i class="pi pi-bolt feature-icon"></i>
+                    <span class="feature-title">Fast Claim Settlement</span>
+                    <p style="color:#64748b;">
+                        Industry-leading 48-hour claim approval for urgent repair needs.
+                    </p>
+                </div>
+            </div>
+
+            <div class="ui-g-12 ui-md-4">
+                <div class="feature-card">
+                    <i class="pi pi-users feature-icon"></i>
+                    <span class="feature-title">24/7 Expert Support</span>
+                    <p style="color:#64748b;">
+                        Our insurance specialists are available around the clock to help you.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ================= MISSION PANEL ================= -->
+        <p:panel style="margin-top:40px; border-radius:15px;">
+            <div class="ui-g ui-fluid">
+                <div class="ui-g-12 ui-md-6" style="padding:20px;">
+                    <h3 style="color:#1e293b; font-size:1.8rem;">Our Mission</h3>
+                    <p style="line-height:1.8; color:#475569;">
+                        At C-Domicile, our mission is to make home insurance transparent,
+                        affordable, and adaptive to modern lifestyles. We focus on trust,
+                        simplicity, and customer-centric innovation.
+                    </p>
+
+                    <p:button value="Get Started Now"
+                              outcome="/register"
+                              styleClass="ui-button-raised"
+                              style="margin-top:20px; background:#4f46e5;" />
+                </div>
+
+                <div class="ui-g-12 ui-md-6" style="text-align:center;">
+                    <i class="pi pi-home" style="font-size:10rem; color:#e2e8f0;"></i>
+                </div>
+            </div>
+        </p:panel>
+
+        <!-- ================= STATISTICS ================= -->
+        <div class="stats-container">
+            <div class="ui-g">
+                <div class="ui-g-12 ui-md-4 stat-box">
+                    <span class="stat-number">99%</span>
+                    <span>Claims Settled</span>
+                </div>
+
+                <div class="ui-g-12 ui-md-4 stat-box">
+                    <span class="stat-number">15+</span>
+                    <span>Years of Excellence</span>
+                </div>
+
+                <div class="ui-g-12 ui-md-4 stat-box">
+                    <span class="stat-number">500K+</span>
+                    <span>Happy Families</span>
+                </div>
+            </div>
+        </div>
+
+    </ui:define>
+
+</ui:composition>
+</html>

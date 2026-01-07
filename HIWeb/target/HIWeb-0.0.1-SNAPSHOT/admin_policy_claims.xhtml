@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+    <title>View Policy Claims</title>
+</h:head>
+
+<h:body>
+
+<h:form id="claimForm">
+
+    <p:panel header="Policy Claim Details"
+             style="width:95%; margin:40px auto;">
+
+        <p:dataTable id="claimTable"
+                     value="#{adminBean.policyClaim}"
+                     var="c"
+                     paginator="true"
+                     rows="10"
+                     stripedRows="true"
+                     responsiveLayout="scroll"
+                     emptyMessage="No policy claims found"
+                     filterDelay="500"
+                     sortMode="multiple">
+
+            <!-- Policy Key -->
+            <p:column headerText="Policy Key"
+                      filterBy="#{c.policyKey}"
+                      filterMatchMode="contains"
+                      sortBy="#{c.policyKey}">
+                <h:outputText value="#{c.policyKey}" />
+            </p:column>
+
+            <!-- Quote ID -->
+            <p:column headerText="Quote ID"
+                      filterBy="#{c.quote.quoteId}"
+                      filterMatchMode="contains"
+                      sortBy="#{c.quote.quoteId}">
+                <h:outputText value="#{c.quote.quoteId}" />
+            </p:column>
+
+            <!-- User ID -->
+            <p:column headerText="User ID"
+                      filterBy="#{c.user.userId}"
+                      filterMatchMode="contains"
+                      sortBy="#{c.user.userId}">
+                <h:outputText value="#{c.user.userId}" />
+            </p:column>
+
+            <!-- Start Date -->
+            <p:column headerText="Start Date"
+                      filterBy="#{c.policyStartDate}"
+                      sortBy="#{c.policyStartDate}">
+                <h:outputText value="#{c.policyStartDate}" />
+            </p:column>
+
+            <!-- End Date -->
+            <p:column headerText="End Date"
+                      filterBy="#{c.policyEndDate}"
+                      sortBy="#{c.policyEndDate}">
+                <h:outputText value="#{c.policyEndDate}" />
+            </p:column>
+
+            <!-- Policy Term -->
+            <p:column headerText="Term (Years)"
+                      filterBy="#{c.policyTerm}"
+                      sortBy="#{c.policyTerm}">
+                <h:outputText value="#{c.policyTerm}" />
+            </p:column>
+
+            <!-- Policy Status -->
+            <p:column headerText="Status"
+             
+                      filterMatchMode="exact"
+                      filterOptions="#{adminBean.policyStatusOptions}">
+                <h:outputText value="#{c.policyStatus}" />
+            </p:column>
+
+        </p:dataTable>
+
+        <h:panelGroup layout="block" style="text-align:center; margin-top:25px;">
+            <p:commandButton value="Back to Admin Home"
+                             action="admin_home.xhtml?faces-redirect=true"
+                             style="width:200px"/>
+        </h:panelGroup>
+
+    </p:panel>
+
+</h:form>
+
+</h:body>
+</html>

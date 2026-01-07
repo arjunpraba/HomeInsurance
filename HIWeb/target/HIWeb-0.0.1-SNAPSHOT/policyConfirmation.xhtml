@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="jakarta.faces.html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="jakarta.faces.core">
+
+<h:head>
+    <title>Policy Confirmation</title>
+    <style>
+        body {
+            background-color: #f3f4f6;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .confirmation-container {
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+            width: 100%;
+            max-width: 650px;
+            overflow: hidden;
+            border: 1px solid #e5e7eb;
+        }
+
+        .success-banner {
+            background: #10b981; /* Success Green */
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .success-icon {
+            font-size: 3rem;
+            margin-bottom: 10px;
+        }
+
+        .policy-card-body {
+            padding: 40px;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+            margin-top: 20px;
+        }
+
+        .info-item {
+            border-bottom: 1px dashed #e5e7eb;
+            padding-bottom: 10px;
+        }
+
+        .info-label {
+            display: block;
+            color: #6b7280;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 5px;
+        }
+
+        .info-value {
+            display: block;
+            color: #1f2937;
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        .policy-key-badge {
+            background: #eff6ff;
+            color: #1d4ed8;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            margin-bottom: 30px;
+            border: 1px solid #dbeafe;
+        }
+
+        .status-active {
+            color: #059669;
+            background: #ecfdf5;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 14px;
+        }
+
+        .action-footer {
+            background: #f9fafb;
+            padding: 25px;
+            text-align: center;
+            border-top: 1px solid #e5e7eb;
+        }
+
+        .home-btn {
+            background: #1f2937 !important;
+            border: none !important;
+            padding: 10px 30px !important;
+            border-radius: 8px !important;
+        }
+    </style>
+</h:head>
+
+<h:body>
+
+    <h:form id="confirmForm">
+        <div class="confirmation-container">
+            
+            <div class="success-banner">
+                <i class="pi pi-check-circle success-icon"></i>
+                <h1 style="margin:0; font-size: 24px;">Policy Confirmed!</h1>
+                <p style="margin: 5px 0 0; opacity: 0.9;">Your insurance coverage is now active.</p>
+            </div>
+
+            <div class="policy-card-body">
+                
+                <div class="policy-key-badge">
+                    <span class="info-label">Official Policy Number</span>
+                    <span style="font-size: 24px; font-weight: 800; letter-spacing: 2px;">
+                        #{policyBean.policyKey}
+                    </span>
+                </div>
+
+                <div class="info-grid">
+                    <div class="info-item">
+                        <span class="info-label">Quote Reference</span>
+                        <span class="info-value"># #{policyBean.quote.quoteId}</span>
+                    </div>
+
+                    <div class="info-item">
+                        <span class="info-label">Status</span>
+                        <span class="info-value">
+                            <h:outputText value="#{policyBean.policyStatus}" styleClass="status-active" />
+                        </span>
+                    </div>
+
+                    <div class="info-item">
+                        <span class="info-label">Effective Date</span>
+                        <span class="info-value">#{policyBean.policyStartDate}</span>
+                    </div>
+
+                    <div class="info-item">
+                        <span class="info-label">Expiration Date</span>
+                        <span class="info-value">#{policyBean.policyEndDate}</span>
+                    </div>
+
+                    <div class="info-item">
+                        <span class="info-label">Policy Term</span>
+                        <span class="info-value">#{policyBean.policyTerm} Year(s)</span>
+                    </div>
+
+                    <div class="info-item">
+                        <span class="info-label">Support</span>
+                        <span class="info-value">24/7 Helpline Active</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="action-footer">
+                <p:commandButton value="Go to Dashboard"
+                                 icon="pi pi-home"
+                                 action="user_home.xhtml?faces-redirect=true"
+                                 styleClass="home-btn"/>
+                
+                <p style="margin-top: 15px; font-size: 12px; color: #9ca3af;">
+                    A confirmation email has been sent to your registered address.
+                </p>
+            </div>
+        </div>
+    </h:form>
+
+</h:body>
+</html>

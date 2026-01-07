@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+    <title>Policy Confirmation</title>
+    <h:outputStylesheet>
+        /* <![CDATA[ */
+        body {
+            background-color: #f4f7f9;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        /* Card Styling */
+        .conf-panel {
+            border: none !important;
+        }
+        .conf-panel .ui-panel-titlebar {
+            background: #ffffff !important;
+            border: none !important;
+            font-size: 1.6em;
+            color: #2c3e50;
+            padding: 25px 30px 10px 30px;
+            text-align: center;
+        }
+        .conf-panel .ui-panel-content {
+            padding: 10px 30px 30px 30px;
+        }
+
+        /* Grid Row Styling */
+        .conf-grid .ui-panelgrid-cell {
+            padding: 15px 10px !important;
+            border-bottom: 1px solid #edf2f7;
+        }
+        .label-style {
+            font-weight: 600;
+            color: #555;
+        }
+        .value-style {
+            color: #2196F3;
+            font-weight: 700;
+            text-align: right;
+        }
+
+        /* Success Icon Header */
+        .success-header {
+            text-align: center;
+            padding-bottom: 20px;
+        }
+        .success-icon {
+            font-size: 3rem;
+            color: #4CAF50;
+            margin-bottom: 10px;
+        }
+
+        /* Button Styling */
+        .home-btn {
+            background-color: #2196F3 !important;
+            border: none !important;
+            color: white !important;
+            font-weight: bold !important;
+            padding: 10px 0 !important;
+            width: 220px;
+            margin-top: 20px;
+        }
+        /* ]]> */
+    </h:outputStylesheet>
+</h:head>
+
+<h:body>
+
+    <h:form id="confForm">
+        <p:panel styleClass="conf-panel" 
+                 style="max-width:650px; margin:60px auto; box-shadow:0 10px 25px rgba(0,0,0,0.08); border-radius:12px;">
+            
+            <div class="success-header">
+                <i class="pi pi-check-circle success-icon"></i>
+                <h2 style="margin:0; color:#2c3e50;">Policy Confirmed!</h2>
+                <p style="color:#777;">Your claim has been processed successfully.</p>
+            </div>
+
+            <p:panelGrid columns="2"
+                         layout="grid"
+                         columnClasses="ui-grid-col-6 label-style, ui-grid-col-6 value-style"
+                         styleClass="conf-grid ui-panelgrid-blank ui-fluid">
+
+                <h:outputLabel value="Quote ID"/>
+                <h:outputText value="#{retriveQuoteBean.policyClaim.quote.quoteId}"/>
+
+                <h:outputLabel value="Policy Key"/>
+                <h:outputText value="#{retriveQuoteBean.policyClaim.policyKey}"/>
+
+<h:outputLabel value="Policy Effective Date"/>
+<h:outputText value="#{retriveQuoteBean.policyClaim.policyStartDate}">
+    <f:convertDateTime type="localDate" pattern="MM/dd/yyyy" />
+</h:outputText>
+
+<h:outputLabel value="Policy End Date"/>
+<h:outputText value="#{retriveQuoteBean.policyClaim.policyEndDate}">
+    <f:convertDateTime type="localDate" pattern="MM/dd/yyyy" />
+</h:outputText>
+
+                <h:outputLabel value="Policy Term"/>
+                <h:outputText value="#{retriveQuoteBean.policyClaim.policyTerm} Years"/>
+
+                <h:outputLabel value="Policy Status"/>
+                <h:panelGroup>
+                    <span style="background:#e8f5e9; color:#2e7d32; padding:4px 12px; border-radius:15px; font-size:0.9em;">
+                        #{retriveQuoteBean.policyClaim.policyStatus}
+                    </span>
+                </h:panelGroup>
+
+            </p:panelGrid>
+
+            <h:panelGroup layout="block" style="text-align:center; margin-top:30px;">
+                <p:commandButton value="Go to Home"
+                                 action="user_home.xhtml?faces-redirect=true"
+                                 icon="pi pi-home"
+                                 styleClass="home-btn"/>
+            </h:panelGroup>
+
+        </p:panel>
+    </h:form>
+
+</h:body>
+</html>

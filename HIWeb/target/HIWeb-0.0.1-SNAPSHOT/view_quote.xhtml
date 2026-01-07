@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+<ui:composition template="template.xhtml">
+
+    <!-- Page Title -->
+    <ui:define name="title">
+        Quote Details | C-Domicile
+    </ui:define>
+
+    <!-- Main Content -->
+    <ui:define name="content">
+
+        <h:form id="viewQuoteForm">
+
+            <div style="display:flex; justify-content:center; margin-top:40px;">
+                <p:panel style="width:100%; max-width:900px; border-radius:12px; box-shadow:0 8px 25px rgba(0,0,0,0.1); padding:30px;"
+                         header="Quote Details Summary"
+                         toggleable="true"
+                         toggleSpeed="500">
+
+                    <!-- Property Information -->
+                    <p:panelGrid columns="4" columnClasses="bold-label, value-col, bold-label, value-col" style="margin-bottom:20px;">
+                        <h:outputLabel value="Quote ID:" styleClass="bold-label"/>
+                        <h:outputText value="#{retriveQuoteBean.quote.quoteId}" style="color:#1e293b;"/>
+                        
+                        <h:outputLabel value="Year Built:" styleClass="bold-label"/>
+                        <h:outputText value="#{retriveQuoteBean.quote.yearBuilt}" style="color:#1e293b;"/>
+                        
+                        <h:outputLabel value="Residence Type:" styleClass="bold-label"/>
+                        <h:outputText value="#{retriveQuoteBean.quote.residenceType}" style="color:#1e293b;"/>
+                        
+                        <h:outputLabel value="Residence Use:" styleClass="bold-label"/>
+                        <h:outputText value="#{retriveQuoteBean.quote.residenceUse}" style="color:#1e293b;"/>
+                        
+                        <h:outputLabel value="Built Up Area:" styleClass="bold-label"/>
+                        <h:outputText value="#{retriveQuoteBean.quote.builtUpArea} sq.ft" style="color:#1e293b;"/>
+                        
+                        <h:outputLabel value="Market Value:" styleClass="bold-label"/>
+                        <h:outputText value="#{retriveQuoteBean.quote.marketValue}" style="color:#1e293b;">
+                            <f:convertNumber type="currency" currencySymbol="$"/>
+                        </h:outputText>
+                        
+                        <h:outputLabel value="Dwelling Style:" styleClass="bold-label"/>
+                        <h:outputText value="#{retriveQuoteBean.quote.dwellingStyle}" style="color:#1e293b;"/>
+                        
+                        <h:outputLabel value="Roof Material:" styleClass="bold-label"/>
+                        <h:outputText value="#{retriveQuoteBean.quote.roofMaterial}" style="color:#1e293b;"/>
+                        
+                        <h:outputLabel value="Garage Type:" styleClass="bold-label"/>
+                        <h:outputText value="#{retriveQuoteBean.quote.garageType}" style="color:#1e293b;"/>
+                        
+                        <h:outputLabel value="Swimming Pool:" styleClass="bold-label"/>
+                        <h:outputText value="#{retriveQuoteBean.quote.swimmingPool ? 'Yes' : 'No'}" style="color:#1e293b;"/>
+                    </p:panelGrid>
+
+                    <p:separator style="margin:25px 0;"/>
+
+                    <!-- Location Information -->
+                    <h:outputText value="Location Information" style="font-size:1.2em; font-weight:700; color:#334155; margin-bottom:15px; display:block;"/>
+                    
+                    <p:panelGrid columns="2" columnClasses="bold-label, value-col">
+                        <h:outputLabel value="Address:" styleClass="bold-label"/>
+                        <h:panelGroup>
+                            <h:outputText value="#{retriveQuoteBean.quote.addressLine1}"/><br/>
+                            <h:outputText value="#{retriveQuoteBean.quote.addressLine2}" rendered="#{not empty retriveQuoteBean.quote.addressLine2}"/><br/>
+                            <h:outputText value="#{retriveQuoteBean.quote.city}, #{retriveQuoteBean.quote.zip}"/>
+                        </h:panelGroup>
+                    </p:panelGrid>
+
+                    <p:separator style="margin:20px 0;"/>
+
+                    <div style="text-align:center; margin-top:20px;">
+                        <p:commandButton value="Back to Quote List" 
+                                         action="retrive_quote.xhtml?faces-redirect=true"
+                                         icon="pi pi-arrow-left" 
+                                         styleClass="p-button-rounded p-button-secondary"
+                                         style="width:200px;"/>
+                    </div>
+
+                </p:panel>
+            </div>
+
+        </h:form>
+
+    </ui:define>
+
+</ui:composition>
+</html>

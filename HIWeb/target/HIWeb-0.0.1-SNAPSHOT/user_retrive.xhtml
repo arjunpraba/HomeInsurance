@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="jakarta.faces.html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="jakarta.faces.facelets"
+      xmlns:f="jakarta.faces.core">
+
+<ui:composition template="template.xhtml">
+
+    <ui:define name="title">
+        User Services | C-Domicile
+    </ui:define>
+
+    <ui:define name="content">
+        <style>
+            /* <![CDATA[ */
+            .services-wrapper {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                padding: 60px 0;
+            }
+
+            .services-card {
+                background: #ffffff;
+                border-radius: 20px;
+                box-shadow: 0 20px 40px rgba(0,0,0,0.05);
+                padding: 45px;
+                width: 100%;
+                max-width: 480px;
+                text-align: center;
+                border: 1px solid #edf2f7;
+            }
+
+            .header-section {
+                margin-bottom: 35px;
+            }
+
+            .header-icon {
+                background: #e0e7ff;
+                color: #4f46e5;
+                width: 70px;
+                height: 70px;
+                line-height: 70px;
+                border-radius: 50%;
+                font-size: 30px;
+                display: inline-block;
+                margin-bottom: 20px;
+            }
+
+            .title {
+                color: #1a202c;
+                font-size: 24px;
+                font-weight: 700;
+                margin: 0;
+            }
+
+            .subtitle {
+                color: #718096;
+                font-size: 14px;
+                margin-top: 10px;
+                display: block;
+            }
+
+            .service-btn {
+                margin-bottom: 18px !important;
+                height: 55px !important;
+                border-radius: 12px !important;
+                font-size: 16px !important;
+                font-weight: 600 !important;
+                transition: all 0.3s ease !important;
+            }
+
+            .btn-retrieve {
+                background: #ffffff !important;
+                color: #4f46e5 !important;
+                border: 2px solid #e0e7ff !important;
+            }
+
+            .btn-retrieve:hover {
+                background: #4f46e5 !important;
+                color: #ffffff !important;
+                border-color: #4f46e5 !important;
+            }
+
+            .btn-claim {
+                background: #ef4444 !important;
+                border: none !important;
+                box-shadow: 0 4px 14px rgba(239, 68, 68, 0.3) !important;
+                color: white !important;
+            }
+
+            .btn-claim:hover {
+                background: #dc2626 !important;
+                transform: translateY(-2px);
+            }
+
+            .back-link {
+                margin-top: 20px;
+                display: inline-block;
+                color: #718096;
+                text-decoration: none;
+                font-size: 14px;
+                transition: color 0.2s;
+            }
+
+            .back-link:hover {
+                color: #4f46e5;
+            }
+            /* ]]> */
+        </style>
+
+        <div class="services-wrapper">
+            <h:form id="userRetrieveForm">
+                <div class="services-card">
+                    
+                    <div class="header-section">
+                        <div class="header-icon">
+                            <i class="pi pi-cog"></i>
+                        </div>
+                        <h1 class="title">User Services</h1>
+                        <span class="subtitle">Access your saved quotes or initiate a new claim.</span>
+                    </div>
+
+                    <div class="flex flex-column">
+                        <p:commandButton value="Retrieve Quotes"
+                                         icon="pi pi-search"
+                                         action="#{retriveQuoteBean.retrive}"
+                                         styleClass="service-btn btn-retrieve"
+                                         style="width: 100%"/>
+
+                        <p:commandButton value="Claim Policy"
+                                         icon="pi pi-file-check"
+                                         action="#{retriveQuoteBean.getPolicies1}"
+                                         styleClass="service-btn btn-claim"
+                                         style="width: 100%"/>
+                    </div>
+
+                    <p:commandLink action="user_home.xhtml?faces-redirect=true" styleClass="back-link">
+                        <i class="pi pi-chevron-left" style="font-size: 10px; margin-right: 5px;"></i>
+                        Back to Dashboard
+                    </p:commandLink>
+
+                </div>
+            </h:form>
+        </div>
+    </ui:define>
+
+</ui:composition>
+</html>

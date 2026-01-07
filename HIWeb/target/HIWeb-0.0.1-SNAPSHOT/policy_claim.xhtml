@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+<h:head>
+    <title>Claim Policy Details</title>
+</h:head>
+
+<h:body>
+
+<h:form id="claimForm">
+
+    <p:panel header="Claim Policy Details"
+             style="width:800px; margin:40px auto;">
+
+        <p:messages showDetail="true" closable="true"/>
+
+        <p:panelGrid columns="2"
+                     columnClasses="ui-grid-col-4, ui-grid-col-8"
+                     cellpadding="8">
+
+            <!-- Policy ID -->
+            <h:outputLabel value="Policy ID"/>
+            <h:outputText value="#{retriveQuoteBean.policy.policyId}"/>
+
+            <!-- Dwelling Coverage -->
+            <h:outputLabel value="Dwelling Coverage"/>
+            <p:selectBooleanCheckbox required="true">
+                <h:outputText value=" $#{retriveQuoteBean.policy.dwellingCoverage}"/>
+            </p:selectBooleanCheckbox>
+
+            <!-- Detached Structures -->
+            <h:outputLabel value="Detached Structures"/>
+            <p:selectBooleanCheckbox required="true">
+                <h:outputText value=" $#{retriveQuoteBean.policy.detachedStructures}"/>
+            </p:selectBooleanCheckbox>
+
+            <!-- Personal Property -->
+            <h:outputLabel value="Personal Property"/>
+            <p:selectBooleanCheckbox required="true">
+                <h:outputText value=" $#{retriveQuoteBean.policy.personalProperty}"/>
+            </p:selectBooleanCheckbox>
+
+            <!-- Medical Expense -->
+            <h:outputLabel value="Medical Expense"/>
+            <p:selectBooleanCheckbox required="true">
+                <h:outputText value=" $#{retriveQuoteBean.policy.medicalExpense}"/>
+            </p:selectBooleanCheckbox>
+
+            <!-- Additional Living Expense -->
+            <h:outputLabel value="Additional Living Expense"/>
+            <p:selectBooleanCheckbox required="true">
+                <h:outputText value=" $#{retriveQuoteBean.policy.additionalLivingExpense}"/>
+            </p:selectBooleanCheckbox>
+
+            <!-- Deductible -->
+            <h:outputLabel value="Deductible"/>
+            <p:selectBooleanCheckbox required="true">
+                <h:outputText value=" $#{retriveQuoteBean.policy.deductible}"/>
+            </p:selectBooleanCheckbox>
+
+            <!-- Reason -->
+            <h:outputLabel value="Reason for Claim"/>
+            <p:inputTextarea value="#{retriveQuoteBean.claimReason}"
+                             required="true"
+                             rows="3"
+                             cols="30"
+                             requiredMessage="Please enter a valid reason"/>
+
+        </p:panelGrid>
+
+        <!-- Submit -->
+        <div style="text-align:center; margin-top:25px;">
+            <p:commandButton value="Submit Claim"
+                             action="#{retriveQuoteBean.submitClaim()}"
+                             update="@form"
+                             styleClass="ui-button-danger"/>
+        </div>
+
+    </p:panel>
+
+</h:form>
+
+</h:body>
+</html>
