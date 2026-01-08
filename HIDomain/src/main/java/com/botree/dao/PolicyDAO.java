@@ -5,52 +5,66 @@ import java.util.List;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.botree.model.PolicyClaim;
 import com.botree.model.PolicyDetails;
 
 @Repository
+@Transactional
 public class PolicyDAO {
-	
-	@Autowired
-	SessionFactory sf;
 
-	public List<String> getCardTypes() {
-		// TODO Auto-generated method stub
-		var session=sf.openSession();
-		var query=session.createNativeQuery("select name from CardTypes",String.class);
-		return query.getResultList();
-	}
+    @Autowired
+    private SessionFactory sessionFactory;
 
-	public List<String> getVendors() {
-		// TODO Auto-generated method stub
-		var session=sf.openSession();
-		var query=session.createNativeQuery("select name from Vendors",String.class);
-		return query.getResultList();
-	}
+    /* =====================================
+       LOOKUP TABLE METHODS
+       ===================================== */
 
-	public List<String> getCardBrands() {
-		// TODO Auto-generated method stub
-		var session=sf.openSession();
-		var query=session.createNativeQuery("select name from CardBrands",String.class);
-		return query.getResultList();
-	}
+    public List<String> getCardTypes() {
+        return sessionFactory
+                .getCurrentSession()
+                .createNativeQuery(
+                        "SELECT name FROM \"CardTypes\"",
+                        String.class
+                )
+                .getResultList();
+    }
 
-	public void savePolicyDetails(PolicyDetails pp) {
-		// TODO Auto-generated method stub
-		var session=sf.openSession();
-		var tx=session.beginTransaction();
-		session.save(pp);
-		tx.commit();	
-	}
+    public List<String> getVendors() {
+        return sessionFactory
+                .getCurrentSession()
+                .createNativeQuery(
+                        "SELECT name FROM \"Vendors\"",
+                        String.class
+                )
+                .getResultList();
+    }
 
-	public void savePolicyClaim(PolicyClaim pc) {
-		// TODO Auto-generated method stub
-		var session=sf.openSession();
-		var tx=session.beginTransaction();
-		session.save(pc);
-		tx.commit();
-		
-	}
+    public List<String> getCardBrands() {
+        return sessionFactory
+                .getCurrentSession()
+                .createNativeQuery(
+                        "SELECT name FROM \"CardBrands\"",
+                        String.class
+                )
+                .getResultList();
+    }
 
+    /* =====================================
+       WRITE OPERATIONS
+       ===================================== */
+
+    public void savePolicyDetails(PolicyDetails policyDetails) {
+        sessionFactory
+                .getCurrentSession()
+                .persist(policyDetails);
+    }
+
+    public void savePolicyClaim(PolicyClaim policyClaim) {
+        sessionFactory
+                .getCurrentSession()
+                .persist(policyClaim);
+    }
 }
+
