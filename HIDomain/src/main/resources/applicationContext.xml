@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:context="http://www.springframework.org/schema/context"
@@ -11,29 +12,26 @@
         http://www.springframework.org/schema/tx
         https://www.springframework.org/schema/tx/spring-tx.xsd">
 
-    <!-- Component Scanning -->
+    <!-- Component scanning -->
     <context:component-scan base-package="com.botree"/>
 
-    <!-- ===================== -->
-    <!-- DATASOURCE (Postgres) -->
-    <!-- ===================== -->
+    <!-- Enable ENV variables -->
+    <context:property-placeholder system-properties-mode="ENVIRONMENT"/>
+
+    <!-- DataSource -->
     <bean id="dataSource"
           class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 
         <property name="driverClassName"
                   value="org.postgresql.Driver"/>
 
+        <!-- FIXED: jdbc prefix -->
         <property name="url"
-                  value="jdbc:postgresql://dpg-d5fjq249c44c73811kfg-a:5432/homeinsu"/>
-
-        <property name="username" value="master"/>
-        <property name="password" value="REPLACE_WITH_RENDER_PASSWORD"/>
+                  value="#{'jdbc:' + systemEnvironment['DATABASE_URL']}"/>
 
     </bean>
 
-    <!-- ================= -->
-    <!-- SESSION FACTORY -->
-    <!-- ================= -->
+    <!-- Hibernate SessionFactory -->
     <bean id="sessionFactory"
           class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
 
@@ -47,34 +45,23 @@
 
         <property name="hibernateProperties">
             <props>
-                <!-- PostgreSQL Dialect -->
                 <prop key="hibernate.dialect">
                     org.hibernate.dialect.PostgreSQLDialect
                 </prop>
-
-                <!-- Safe for cloud -->
                 <prop key="hibernate.hbm2ddl.auto">validate</prop>
-
-                <!-- SQL logging -->
                 <prop key="hibernate.show_sql">true</prop>
                 <prop key="hibernate.format_sql">true</prop>
-
-                <!-- IMPORTANT for PostgreSQL -->
-                <prop key="hibernate.globally_quoted_identifiers">true</prop>
             </props>
         </property>
 
     </bean>
 
-    <!-- ===================== -->
-    <!-- TRANSACTION MANAGER -->
-    <!-- ===================== -->
+    <!-- Transaction Manager -->
     <bean id="transactionManager"
           class="org.springframework.orm.hibernate5.HibernateTransactionManager">
         <property name="sessionFactory" ref="sessionFactory"/>
     </bean>
 
-    <!-- Enable @Transactional -->
     <tx:annotation-driven transaction-manager="transactionManager"/>
 
 </beans>
