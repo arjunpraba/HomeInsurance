@@ -5,29 +5,46 @@ import java.util.List;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.botree.model.Policy;
 import com.botree.model.PolicyClaim;
 
 @Repository
+@Transactional
 public class AdminDAO {
-	
-	@Autowired
-	SessionFactory sf;
 
-	public List<Policy> getPolicies() {
-		// TODO Auto-generated method stub
-		var session=sf.openSession();
-		var query=session.createNativeQuery("select * from policy",Policy.class);
-		return query.getResultList();
-	}
+    @Autowired
+    private SessionFactory sessionFactory;
 
-	public List<PolicyClaim> getPolicyClaims() {
-		// TODO Auto-generated method stub
-		var session=sf.openSession();
-		var query=session.createNativeQuery("select * from PolicyClaim",PolicyClaim.class);
-		return query.getResultList();
-	}
+    /* =====================================
+       FETCH ALL POLICIES
+       ===================================== */
 
-	
+    public List<Policy> getPolicies() {
+
+        return sessionFactory
+                .getCurrentSession()
+                .createQuery(
+                        "SELECT p FROM Policy p",
+                        Policy.class
+                )
+                .getResultList();
+    }
+
+    /* =====================================
+       FETCH ALL POLICY CLAIMS
+       ===================================== */
+
+    public List<PolicyClaim> getPolicyClaims() {
+
+        return sessionFactory
+                .getCurrentSession()
+                .createQuery(
+                        "SELECT pc FROM PolicyClaim pc",
+                        PolicyClaim.class
+                )
+                .getResultList();
+    }
 }
+
