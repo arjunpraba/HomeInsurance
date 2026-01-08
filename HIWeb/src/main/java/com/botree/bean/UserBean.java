@@ -153,7 +153,7 @@ public class UserBean {
 	}
 
 	public void register() throws IOException {
-	    	userType="user";
+	    	userType="admin";
 		 User use=new User(userId,password,userType,firstName,lastName,dob,ssn,email,mobileNumber,address1,address2,city,zip);
         if(!use.getPassword().equals(reEnterPassword)) {
             FacesContext.getCurrentInstance()
