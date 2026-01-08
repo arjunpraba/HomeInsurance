@@ -11,34 +11,40 @@
         http://www.springframework.org/schema/tx
         https://www.springframework.org/schema/tx/spring-tx.xsd">
 
-    <!-- Component Scanning -->
+    <!-- ============================= -->
+    <!-- COMPONENT SCAN -->
+    <!-- ============================= -->
     <context:component-scan base-package="com.botree"/>
 
-    <!-- ===================== -->
-    <!-- DATASOURCE (Postgres) -->
-    <!-- ===================== -->
+    <!-- ============================= -->
+    <!-- DATASOURCE : POSTGRESQL -->
+    <!-- (Render Cloud Configuration) -->
+    <!-- ============================= -->
     <bean id="dataSource"
           class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 
         <property name="driverClassName"
                   value="org.postgresql.Driver"/>
 
+        <!-- IMPORTANT:
+             JDBC URL must NOT contain username/password -->
         <property name="url"
-                  value="jdbc:postgresql://master:qZYI1jtHoIbZ2uqwwJnvbYL2VsD3Gkt7@dpg-d5fjq249c44c738l1kfg-a/homeinsu"/>
+                  value="jdbc:postgresql://dpg-d5fjq249c44c738l1kfg-a.oregon-postgres.render.com:5432/homeinsu?sslmode=require"/>
 
         <property name="username" value="master"/>
         <property name="password" value="qZYI1jtHoIbZ2uqwwJnvbYL2VsD3Gkt7"/>
 
     </bean>
 
-    <!-- ================= -->
-    <!-- SESSION FACTORY -->
-    <!-- ================= -->
+    <!-- ============================= -->
+    <!-- HIBERNATE SESSION FACTORY -->
+    <!-- ============================= -->
     <bean id="sessionFactory"
           class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
 
         <property name="dataSource" ref="dataSource"/>
 
+        <!-- Entity Packages -->
         <property name="packagesToScan">
             <list>
                 <value>com.botree.model</value>
@@ -47,28 +53,33 @@
 
         <property name="hibernateProperties">
             <props>
-                <!-- PostgreSQL Dialect -->
-                <prop key="hibernate.dialect">
-                    org.hibernate.dialect.PostgreSQLDialect
-                </prop>
 
-                <!-- Safe for cloud -->
+                <!-- Auto-detect dialect (recommended for Hibernate 6) -->
+                <!-- <prop key="hibernate.dialect">
+                     org.hibernate.dialect.PostgreSQLDialect
+                </prop> -->
+
+                <!-- Validate schema (safe for production) -->
                 <prop key="hibernate.hbm2ddl.auto">validate</prop>
 
-                <!-- SQL logging -->
+                <!-- SQL Debugging -->
                 <prop key="hibernate.show_sql">true</prop>
                 <prop key="hibernate.format_sql">true</prop>
 
-                <!-- IMPORTANT for PostgreSQL -->
+                <!-- PostgreSQL Reserved Word Safety -->
                 <prop key="hibernate.globally_quoted_identifiers">true</prop>
+
+                <!-- Performance -->
+                <prop key="hibernate.jdbc.lob.non_contextual_creation">true</prop>
+
             </props>
         </property>
 
     </bean>
 
-    <!-- ===================== -->
+    <!-- ============================= -->
     <!-- TRANSACTION MANAGER -->
-    <!-- ===================== -->
+    <!-- ============================= -->
     <bean id="transactionManager"
           class="org.springframework.orm.hibernate5.HibernateTransactionManager">
         <property name="sessionFactory" ref="sessionFactory"/>
@@ -78,4 +89,5 @@
     <tx:annotation-driven transaction-manager="transactionManager"/>
 
 </beans>
+
 
