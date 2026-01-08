@@ -6,6 +6,7 @@ import java.util.List;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.botree.model.Policy;
 import com.botree.model.PolicyClaim;
@@ -13,89 +14,88 @@ import com.botree.model.Quote;
 import com.botree.model.User;
 
 @Repository
+@Transactional
 public class RetriveDAO {
 
-	@Autowired
-	SessionFactory sf;
+    @Autowired
+    private SessionFactory sessionFactory;
 
-	public List<Quote> getQuotes(User user) {
-	    var session = sf.openSession();
-	    var query = session.createQuery(
-	        "select q from Quote q where q.user = :user",
-	        Quote.class
-	    );
-	    query.setParameter("user", user);
-	    return query.getResultList();
-	}
+    /* =====================================
+       FETCH QUOTES FOR A USER
+       ===================================== */
 
+    public List<Quote> getQuotes(User user) {
 
-	public List<Policy> getAllPolicies(User user2) {
+        return sessionFactory
+                .getCurrentSession()
+                .createQuery(
+                        "SELECT q FROM Quote q WHERE q.user = :user",
+                        Quote.class
+                )
+                .setParameter("user", user)
+                .getResultList();
+    }
 
-	    User user = user2;
-	    System.out.println(user);
+    /* =====================================
+       FETCH POLICIES FOR A USER
+       ===================================== */
 
-	    var session = sf.openSession();
+    public List<Policy> getAllPolicies(User user) {
 
-	    var query = session.createQuery(
-	        "SELECT p FROM Policy p WHERE p.user = :user",
-	        Policy.class
-	    );
+        return sessionFactory
+                .getCurrentSession()
+                .createQuery(
+                        "SELECT p FROM Policy p WHERE p.user = :user",
+                        Policy.class
+                )
+                .setParameter("user", user)
+                .getResultList();
+    }
 
-	    query.setParameter("user", user);
+    /* =====================================
+       ACTIVATE POLICY (UPDATE POLICY CLAIM)
+       ===================================== */
 
-	    return query.getResultList();
-	}
+    public PolicyClaim updatepolicyclaim(Policy policy) {
 
+        // Fetch PolicyClaim using associated Quote
+        PolicyClaim claim = sessionFactory
+                .getCurrentSession()
+                .createQuery(
+                        "SELECT pc FROM PolicyClaim pc WHERE pc.quote = :quote",
+                        PolicyClaim.class
+                )
+                .setParameter("quote", policy.getQuote())
+                .uniqueResult();
 
-	public PolicyClaim updatepolicyclaim(Policy policy) {
-		// TODO Auto-generated method stub
-		    var session = sf.openSession();
-		    var tx = session.beginTransaction();
+        if (claim == null) {
+            throw new RuntimeException(
+                "PolicyClaim not found for Policy ID: " + policy.getPolicyId()
+            );
+        }
 
-		    try {
+        // 1. Policy start date = today
+        LocalDate startDate = LocalDate.now();
+        claim.setPolicyStartDate(startDate);
 
-		        // Fetch PolicyClaim using Quote (or policyKey if you have it)
-		        PolicyClaim claim = session.createQuery(
-		                "FROM PolicyClaim pc WHERE pc.quote = :quote",
-		                PolicyClaim.class)
-		                .setParameter("quote", policy.getQuote())
-		                .uniqueResult();
+        // 2. Policy end date = start date + term
+        Integer term = claim.getPolicyTerm();
+        if (term == null || term <= 0) {
+            throw new RuntimeException("Invalid policy term");
+        }
 
-		        if (claim == null) {
-		            throw new RuntimeException("PolicyClaim not found for Policy ID: " + policy.getPolicyId());
-		        }
+        LocalDate endDate = startDate.plusYears(term);
+        claim.setPolicyEndDate(endDate);
 
-		        // 1. Set start date as current date
-		        LocalDate startDate = LocalDate.now();
-		        claim.setPolicyStartDate(startDate);
+        // 3. Update status
+        claim.setPolicyStatus("Active");
 
-		        // 2. Calculate end date using policy term (years)
-		        Integer term = claim.getPolicyTerm();
-		        if (term == null || term <= 0) {
-		            throw new RuntimeException("Invalid policy term");
-		        }
+        // 4. Persist changes (managed entity → no merge needed)
+        sessionFactory
+                .getCurrentSession()
+                .update(claim);
 
-		        LocalDate endDate = startDate.plusYears(term);
-		        claim.setPolicyEndDate(endDate);
-
-		        // 3. Update status
-		        claim.setPolicyStatus("Active");
-
-		        // 4. Persist changes
-		        session.merge(claim);
-
-		        tx.commit();
-		        return claim;
-
-		    } catch (Exception e) {
-		        if (tx != null) tx.rollback();
-		        throw e;
-		    } finally {
-		        session.close();
-		    }
-		
-	}
-
-	
-	
+        return claim;
+    }
 }
+
