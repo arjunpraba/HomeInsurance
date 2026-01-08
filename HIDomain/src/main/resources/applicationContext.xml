@@ -51,29 +51,20 @@
             </list>
         </property>
 
-        <property name="hibernateProperties">
-            <props>
+<property name="hibernateProperties">
+    <props>
 
-                <!-- Auto-detect dialect (recommended for Hibernate 6) -->
-                <!-- <prop key="hibernate.dialect">
-                     org.hibernate.dialect.PostgreSQLDialect
-                </prop> -->
+        <prop key="hibernate.hbm2ddl.auto">update</prop>
 
-                <!-- Validate schema (safe for production) -->
-                <prop key="hibernate.hbm2ddl.auto">validate</prop>
+        <prop key="hibernate.show_sql">true</prop>
+        <prop key="hibernate.format_sql">true</prop>
 
-                <!-- SQL Debugging -->
-                <prop key="hibernate.show_sql">true</prop>
-                <prop key="hibernate.format_sql">true</prop>
+        <prop key="hibernate.globally_quoted_identifiers">true</prop>
+        <prop key="hibernate.jdbc.lob.non_contextual_creation">true</prop>
 
-                <!-- PostgreSQL Reserved Word Safety -->
-                <prop key="hibernate.globally_quoted_identifiers">true</prop>
+    </props>
+</property>
 
-                <!-- Performance -->
-                <prop key="hibernate.jdbc.lob.non_contextual_creation">true</prop>
-
-            </props>
-        </property>
 
     </bean>
 
