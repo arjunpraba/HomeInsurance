@@ -5,65 +5,85 @@ import java.util.List;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.botree.model.Policy;
 import com.botree.model.Quote;
 
 @Repository
+@Transactional
 public class QuoteDAO {
-	
-	@Autowired
-	SessionFactory sf;
 
-	public List<String> getresidenceTypes() {
-		// TODO Auto-generated method stub
-		var session=sf.openSession();
-		var query=session.createNativeQuery("select name from ResidenceType",String.class);
-		return query.getResultList();
-	}
+    @Autowired
+    private SessionFactory sessionFactory;
 
-	public List<String> getResidenceUses() {
-		// TODO Auto-generated method stub
-		var session=sf.openSession();
-		var query=session.createNativeQuery("select name from ResidenceUse",String.class);
-		return query.getResultList();
-	}
+    /* =====================================
+       LOOKUP TABLE METHODS (READ ONLY)
+       ===================================== */
 
-	public List<String> getDwellingStyle() {
-		// TODO Auto-generated method stub
-		var session=sf.openSession();
-		var query=session.createNativeQuery("select name from DwellingStyle",String.class);
-		return query.getResultList();
-	}
+    public List<String> getresidenceTypes() {
+        return sessionFactory
+                .getCurrentSession()
+                .createNativeQuery(
+                        "SELECT name FROM \"ResidenceType\"",
+                        String.class
+                )
+                .getResultList();
+    }
 
-	public List<String> getRoodMeterial() {
-		// TODO Auto-generated method stub
-		var session=sf.openSession();
-		var query=session.createNativeQuery("select name from RoofMeterial",String.class);
-		return query.getResultList();
-	}
+    public List<String> getResidenceUses() {
+        return sessionFactory
+                .getCurrentSession()
+                .createNativeQuery(
+                        "SELECT name FROM \"ResidenceUse\"",
+                        String.class
+                )
+                .getResultList();
+    }
 
-	public List<String> getGarageTyps() {
-		// TODO Auto-generated method stub
-		var session=sf.openSession();
-		var query=session.createNativeQuery("select name from GarageType",String.class);
-		return query.getResultList();
-	}
+    public List<String> getDwellingStyle() {
+        return sessionFactory
+                .getCurrentSession()
+                .createNativeQuery(
+                        "SELECT name FROM \"DwellingStyle\"",
+                        String.class
+                )
+                .getResultList();
+    }
 
-	public void generateQuote(Quote quote) {
-		// TODO Auto-generated method stub
-		var session=sf.openSession();
-		var tx=session.beginTransaction();
-		session.save(quote);
-		tx.commit();
-	}
+    public List<String> getRoodMeterial() {
+        return sessionFactory
+                .getCurrentSession()
+                .createNativeQuery(
+                        "SELECT name FROM \"RoofMeterial\"",
+                        String.class
+                )
+                .getResultList();
+    }
 
-	public void saveCoverage(Policy p) {
-		// TODO Auto-generated method stub
-		var session=sf.openSession();
-		var tx=session.beginTransaction();
-		session.save(p);
-		tx.commit();	
-	}
+    public List<String> getGarageTyps() {
+        return sessionFactory
+                .getCurrentSession()
+                .createNativeQuery(
+                        "SELECT name FROM \"GarageType\"",
+                        String.class
+                )
+                .getResultList();
+    }
 
+    /* =====================================
+       WRITE OPERATIONS
+       ===================================== */
+
+    public void generateQuote(Quote quote) {
+        sessionFactory
+                .getCurrentSession()
+                .persist(quote);
+    }
+
+    public void saveCoverage(Policy policy) {
+        sessionFactory
+                .getCurrentSession()
+                .persist(policy);
+    }
 }
