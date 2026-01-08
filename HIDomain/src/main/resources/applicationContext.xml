@@ -5,46 +5,70 @@
        xmlns:tx="http://www.springframework.org/schema/tx"
        xsi:schemaLocation="
         http://www.springframework.org/schema/beans
-        http://www.springframework.org/schema/beans/spring-beans.xsd
+        https://www.springframework.org/schema/beans/spring-beans.xsd
         http://www.springframework.org/schema/context
-        http://www.springframework.org/schema/context/spring-context.xsd
+        https://www.springframework.org/schema/context/spring-context.xsd
         http://www.springframework.org/schema/tx
-        http://www.springframework.org/schema/tx/spring-tx.xsd">
+        https://www.springframework.org/schema/tx/spring-tx.xsd">
 
-    <!-- Enable Component Scanning -->
+    <!-- Component Scanning -->
     <context:component-scan base-package="com.botree"/>
 
-    <!-- DataSource -->
+    <!-- ===================== -->
+    <!-- DATASOURCE (Postgres) -->
+    <!-- ===================== -->
     <bean id="dataSource"
           class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-        <property name="driverClassName" value="com.mysql.cj.jdbc.Driver"/>
-        <property name="url" value="jdbc:mysql://localhost:3306/home"/>
-        <property name="username" value="prabhakar"/>
-        <property name="password" value="Bsipl@123"/>
+
+        <property name="driverClassName"
+                  value="org.postgresql.Driver"/>
+
+        <property name="url"
+                  value="jdbc:postgresql://dpg-d5fjq249c44c73811kfg-a:5432/homeinsu"/>
+
+        <property name="username" value="master"/>
+        <property name="password" value="REPLACE_WITH_RENDER_PASSWORD"/>
+
     </bean>
 
-    <!-- SessionFactory -->
+    <!-- ================= -->
+    <!-- SESSION FACTORY -->
+    <!-- ================= -->
     <bean id="sessionFactory"
           class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
-        <property name="dataSource" ref="dataSource"/>
 
-        <property name="hibernateProperties">
-            <props>
-                <prop key="hibernate.dialect">org.hibernate.dialect.MySQL8Dialect</prop>
-                <prop key="hibernate.hbm2ddl.auto">update</prop>
-                <prop key="hibernate.show_sql">true</prop>
-                <prop key="hibernate.format_sql">true</prop>
-            </props>
-        </property>
+        <property name="dataSource" ref="dataSource"/>
 
         <property name="packagesToScan">
             <list>
                 <value>com.botree.model</value>
             </list>
         </property>
+
+        <property name="hibernateProperties">
+            <props>
+                <!-- PostgreSQL Dialect -->
+                <prop key="hibernate.dialect">
+                    org.hibernate.dialect.PostgreSQLDialect
+                </prop>
+
+                <!-- Safe for cloud -->
+                <prop key="hibernate.hbm2ddl.auto">validate</prop>
+
+                <!-- SQL logging -->
+                <prop key="hibernate.show_sql">true</prop>
+                <prop key="hibernate.format_sql">true</prop>
+
+                <!-- IMPORTANT for PostgreSQL -->
+                <prop key="hibernate.globally_quoted_identifiers">true</prop>
+            </props>
+        </property>
+
     </bean>
 
-    <!-- Transaction Manager -->
+    <!-- ===================== -->
+    <!-- TRANSACTION MANAGER -->
+    <!-- ===================== -->
     <bean id="transactionManager"
           class="org.springframework.orm.hibernate5.HibernateTransactionManager">
         <property name="sessionFactory" ref="sessionFactory"/>
